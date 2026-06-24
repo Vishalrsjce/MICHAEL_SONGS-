@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    background: linear-gradient(to right, #232526, #414345);
+    color: #e0e0e0;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.player-container {
+    background-color: #282a2d;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    width: 380px;
+    padding: 25px;
+    position: relative; 
+    overflow: hidden;  
+}
+
+/* --- MODIFIED SPOTLIGHT STYLE --- */
+.spotlight {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 450px; /* Slightly larger for a bigger sweep */
+    height: 450px;
+    pointer-events: none; /* Make sure they don't block clicks */
+    z-index: 1; /* Ensure lights are behind content */
+    /* The transition now applies to transform and the background property */
+    transition: transform 3s ease-in-out, background 3s ease;
+}
+
+#spotlight-left {
+    transform: translate(-120%, -50%); /* Start off-screen left */
+}
+
+#spotlight-right {
+    transform: translate(20%, -50%); /* Start off-screen right */
+}
+
+/* --- Ensure content is above spotlights --- */
+.cd-wrapper, .song-details, .controls-wrapper, .volume-wrapper, .playlist-wrapper {
+    position: relative;
+    z-index: 2;
+}
+
+/* CD Styling */
+.cd-wrapper { display: flex; justify-content: center; margin-bottom: 25px; }
+.cd {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    position: relative;
+    animation: rotate-cd 10s linear infinite paused;
+}
+.cd.playing { animation-play-state: running; }
+@keyframes rotate-cd {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+#album-art {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #333;
+}
+
+/* Song Details */
+.song-details { text-align: center; margin-bottom: 20px; }
+#title { margin: 0; font-size: 1.5em; }
+#artist { margin: 5px 0 0; font-size: 1em; color: #aaa; }
+
+/* Main Controls */
+.controls-wrapper { display: flex; justify-content: center; align-items: center; gap: 30px; }
+.control-btn { background: none; border: none; color: #e0e0e0; font-size: 1.5em; cursor: pointer; transition: transform 0.2s; }
+.control-btn:hover { transform: scale(1.1); }
+.play-pause { background-color: #1db954; width: 60px; height: 60px; border-radius: 50%; color: white; font-size: 1.8em; display: flex; justify-content: center; align-items: center; }
+
+/* Volume Control Styling */
+.volume-wrapper { display: flex; justify-content: center; align-items: center; gap: 15px; margin: 20px auto; width: 70%; }
+#volume-icon { color: #aaa; cursor: pointer; transition: color 0.2s; }
+#volume-icon:hover { color: #fff; }
+.volume-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 5px; background: #444; outline: none; border-radius: 5px; cursor: pointer; }
+.volume-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 15px; height: 15px; background: #1db954; border-radius: 50%; cursor: pointer; }
+.volume-slider::-moz-range-thumb { width: 15px; height: 15px; background: #1db954; border-radius: 50%; border: none; cursor: pointer; }
+
+/* Playlist and Genres */
+.playlist-wrapper { background-color: rgba(51, 51, 51, 0.8); backdrop-filter: blur(5px); border-radius: 10px; padding: 15px; margin-top: 15px; }
+.genre-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+#genre-select { background-color: #444; color: #e0e0e0; border: none; padding: 5px; border-radius: 5px; }
+#search-bar { width: 100%; padding: 10px; box-sizing: border-box; background-color: #444; border: 1px solid #555; border-radius: 5px; color: #e0e0e0; margin-bottom: 10px;}
+#song-playlist { list-style: none; padding: 0; margin: 0; max-height: 150px; overflow-y: auto; }
+#song-playlist li { padding: 12px; cursor: pointer; border-bottom: 1px solid #444; transition: background-color 0.2s; }
+#song-playlist li:hover { background-color: #444; }
+#song-playlist li.active { background-color: #1db954; color: white; }
